@@ -150,3 +150,7 @@ function transformKebabCaseToCamelCase(data)
   return result
 }
 console.log(transformKebabCaseToCamelCase(exampleJson))
+
+
+
+///
