@@ -153,4 +153,15 @@ console.log(transformKebabCaseToCamelCase(exampleJson))
 
 
 
-///
+/// function given a string your job is if the string is even return 1 letter in the middle upperCASe, if the wor
+//if the word is odd return 1 letter upperCase
+function getMiddle(string) {
+  var middleIndex = string.length / 2;
+  if (string.length % 2 == 0) {
+    return string.slice(middleIndex - 1, middleIndex + 1);
+  } else {
+    return string.charAt(middleIndex);
+  }
+}
+console.log("test")//es
+console.log("tesqt")//s
