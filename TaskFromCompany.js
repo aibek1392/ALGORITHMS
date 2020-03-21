@@ -92,3 +92,5 @@ function myFunction(currentUser, sortBy = "acctNum", sortDirection = "asc") {
 
 
 console.log(myFunction("Alice", "balance", "asc"))
+
+
