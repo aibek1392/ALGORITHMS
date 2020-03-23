@@ -165,3 +165,34 @@ function getMiddle(string) {
 }
 console.log("test")//es
 console.log("tesqt")//s
+
+
+//// revers
+function isPalindrome(s)
+{
+    if(s.length <= 1)
+    {
+        return true
+    }
+    s = s.split('')
+    return s.pop() === s.shift() && isPalindrome(s.join(''))
+}
+
+// isPalindrome('awesome') // false
+// isPalindrome('foobar') // false
+// isPalindrome('tacocat') // true
+// isPalindrome('amanaplanacanalpanama') // true
+// isPalindrome('amanaplanacanalpandemonium') // false
+
+//flatten solution
+function flatten(oldArr){
+  var newArr = []
+  	for(var i = 0; i < oldArr.length; i++){
+    	if(Array.isArray(oldArr[i])){
+      		newArr = newArr.concat(flatten(oldArr[i]))
+    	} else {
+      		newArr.push(oldArr[i])
+    	}
+  } 
+  return newArr;
+}
