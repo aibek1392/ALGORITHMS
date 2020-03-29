@@ -94,3 +94,24 @@ function myFunction(currentUser, sortBy = "acctNum", sortDirection = "asc") {
 console.log(myFunction("Alice", "balance", "asc"))
 
 
+//////// write a function that return true if order of brackets,curly braces or paranteces are valid, otherwise return false
+
+function validBraces(braces){
+  var matches = { '(':')', '{':'}', '[':']' };
+  var stack = [];
+  var currentChar;
+
+  for (var i=0; i<braces.length; i++) {
+    currentChar = braces[i];
+
+    if (matches[currentChar]) { // opening braces
+      stack.push(currentChar);
+    } else { // closing braces
+      if (currentChar !== matches[stack.pop()]) {
+        return false;
+      }
+    }
+  }
+
+  return stack.length === 0; // any unclosed braces left?
+}
