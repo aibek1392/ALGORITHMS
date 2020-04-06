@@ -107,3 +107,27 @@ function mostFrequentCharacter(S) {
   return lettersArr.sort()[0]
 }
 
+
+// Find max binary gap; count of largest sequence of zeros between ones for given binary number N
+
+function binaryGap(N) {
+	const regEx1 = /^[0]+/;
+	const regEx2 = /[0]+$/;
+
+	const numString = N.toString(2).replace(regEx1,'').replace(regEx2,'').toString();
+
+	const countsObj = {};
+	let counter = 0;
+
+	for (i in numString) {
+		if (numString[i] == 0) {
+			counter += 1;
+		} else {
+			countsObj[i] = counter;
+			counter = 0;
+		}
+	}
+
+	return (Math.max(...Object.values(countsObj)));
+}
+
