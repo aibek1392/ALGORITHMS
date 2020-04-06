@@ -218,4 +218,15 @@ function capitalizeWords (array) {
   return res;
  
 }
-///
+///Complete the solution so that the function will break up camel casing, using a space between words.
+
+// Example
+// solution("camelCasing")  ==  "camel Casing"
+function solution(string) {
+  return string.split('').map(s => {
+    if(s.charCodeAt(0) >= 65 && s.charCodeAt(0) <= 90)
+      return ' ' + s;
+    else
+      return s;
+  }).join('');
+}

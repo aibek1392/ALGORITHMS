@@ -87,3 +87,23 @@ function diamond (n) {
   }
   return str
 }
+
+// Find the letter that appears most often in a string S
+
+function mostFrequentCharacter(S) {
+  const lettersObj = {};
+  for (letter of S) {
+    lettersObj[letter] = 0;
+  }
+  for (letter of S) {
+    lettersObj[letter] += 1;
+  }
+  const lettersArr = [];
+  for (letter in lettersObj) {
+    if (lettersObj[letter] === Math.max(...Object.values(lettersObj))) {
+      lettersArr.push(letter)
+    }
+  }
+  return lettersArr.sort()[0]
+}
+
