@@ -105,3 +105,88 @@ function rentalCarCost(d) {
     if(d >= 3 && d < 7) return (d * 40) - 20
     if(d >= 7) return (d * 40) - 50
   }
+
+
+  //Given a string of digits, you should replace any digit below 5 with '0' and any digit 5 and above with '1'. Return the resulting string.
+  function fakeBin(x){
+    let result = ''
+    for(let i = 0; i< x.length; i++){
+    result += x[i] < 5? x[i] = 0 : x[i] || x[i] >= 5? x[i] = 1 : x[i]
+    }
+    return result
+   }
+
+   //finding third angle of triangle
+   const otherAngle = (a, b) => 180 - (a+b)
+
+   ///counting sheeps
+   //Test.assertEquals(countSheep(3), "1 sheep...2 sheep...3 sheep...");
+   var countSheep = function (num){
+    let result = ''
+    for(let i =1 ; i<=num; i++){
+      result += `${i} sheep...`
+    }
+    return result
+  }
+
+  ///converting string to an array
+  function stringToArray(string){
+	return string.split(' ')
+    }
+    //This kata is about multiplying a given number by eight if it is an even number and by nine otherwise.
+    const simpleMultiplication = (number) => number % 2===0 ? number * 8 : number * 9
+
+    
+    // Test.assertEquals(doubleChar("Adidas"), "AAddiiddaass");
+    const doubleChar = (str)=> str.split('').map(x=> x+x).join('')
+
+    //sissors stone paper game 
+    const rps = (p1, p2) => {
+        var map = {
+          'rock': 'scissors',
+          'scissors': 'paper',
+          'paper': 'rock'
+        };
+        
+        if (p1 == p2) {
+          return 'Draw!';
+        } else {
+          return 'Player ' + (map[p1] == p2 ? 1 : 2) + ' won!';
+        }
+      };
+
+//correctPolishLetters
+      var polishLetters = {
+        "ą": "a",
+        "ć": "c",
+        "ę": "e",
+        "ł": "l",
+        "ń": "n",
+        "ó": "o",
+        "ś": "s",
+        "ź": "z",
+        "ż": "z",
+    };
+    
+    function correctPolishLetters (string) {
+      return string.split('').map((c) => polishLetters[c] || c).join("");
+    }
+
+
+    // numberToPower(3,2)  // -> 9 ( = 3 * 3 )
+    // numberToPower(2,3)  // -> 8 ( = 2 * 2 * 2 )
+    // numberToPower(10,6) // -> 1000000
+
+    function numberToPower(number, power){
+        var total = 1
+         for(let i = 1; i <= power; i++) {
+         total = total * number
+         }
+         return total
+        }
+
+        ///how to make an array from numbers using ...new Array(n)
+        //.fill -> changes number all elements in an array , if there are two arguments(first is index, second is what we want to change with)
+        function numberToPower(number, power){
+            return [...new Array(power)].fill(number).reduce((a,b)=> a*b,1)
+          }
