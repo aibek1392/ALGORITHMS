@@ -66,3 +66,42 @@ function sumArray(array) {
     if (array == null || array.length == 0 || array.length == 1) return 0
     return array.sort((a, b) => a - b).slice(1, -1).reduce((a, b) => a + b, 0)
 }
+
+
+//find max, min numbers in an array
+var min = (list) => Math.min(...list)  
+var max = (list) => Math.max(...list)
+
+
+function getMiddle(s){
+  return (s.length % 2 === 1) ? s.charAt(Math.floor(s.length/2)) : s.slice(s.length/2 - 1,s.length/2 + 1) 
+}
+
+
+
+//Test.assertSimilar(countBy(1,5), [1,2,3,4,5], "Array does not match")
+// Test.assertSimilar(countBy(2,5), [2,4,6,8,10], "Array does not match")
+function countBy(x, n) {
+    var z = [];
+    for(let i = 1; i <= n; i++){
+     z.push(i * x)
+    } 
+    return z;
+  }
+
+  //convert letter if it is uppercase to lowercase, and opoiste
+  String.prototype.toAlternatingCase = function () {
+    return this.split('').map(a => a === a.toUpperCase() ? a.toLowerCase() : a.toUpperCase()).join('')
+ }
+
+ //compare your points with average number of points of your classmates
+ function betterThanAverage(classPoints, yourPoints) {
+    return yourPoints > classPoints.reduce((a,b) => a+b,0) / classPoints.length
+  }
+
+//   Every day you rent the car costs $40. If you rent the car for 7 or more days, you get $50 off your total. Alternatively, if you rent the car for 3 or more days, you get $20 off your total.
+function rentalCarCost(d) {
+    if(d < 3) return d * 40
+    if(d >= 3 && d < 7) return (d * 40) - 20
+    if(d >= 7) return (d * 40) - 50
+  }
