@@ -35,7 +35,49 @@ const monkeyCount = (n) => {
     return monkeys;
    }
 
-   
+  //Write a function that will take in any array and reverse it.
 
+   function reverse(arr) {
+    for(let i = 0; i < arr.length / 2; i++) {
+      let temp = arr[i];
+      arr[i] = arr[arr.length - i - 1];
+      arr[arr.length - i - 1] = temp;
+    }
+    return arr;
+ }
+
+
+
+//  partner.response("words") ==> "positive"
+// partner.response("acts")  ==> "neutral"
+// partner.response("words") ==> "positive"
+// partner.response("time")  ==> "neutral"
+// partner.response("acts")  ==> "positive"    # false positive
+// partner.response("gifts") ==> "neutral"
+// partner.response("words") ==> "neutral" 
+ function loveLanguage(partner, weeks) {
+    let attempts = 0;
+    const counts = {};
+  
+    while (attempts < weeks) {
+      LOVE_LANGUAGES.forEach(language => {
+        if (partner.response(language) === 'positive') {
+          counts[language] = (counts[language] + 1) | 1;
+        }
+      });
+      attempts++;
+    }
+  
+    let res;
+    let max = 0;
+  
+    for (language in counts) {
+      if (counts[language] > max) {
+        res = language;
+        max = counts[language];
+      }
+    }
+    return res;
+  }
 
    
