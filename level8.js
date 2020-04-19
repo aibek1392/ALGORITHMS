@@ -237,3 +237,15 @@ function points(games) {
    })
    return total
   }
+
+  // get index of element in the array, otherwise "Not found"
+  const find =(array, element)=> array.includes(element) ? array.indexOf(element) : "Not found"
+
+
+  //remove every second element from the array
+  function removeEveryOther(arr){
+    for (var i = 1; i < arr.length;i++){
+        arr.splice(i,1);
+    }
+    return arr;
+  }
