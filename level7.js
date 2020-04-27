@@ -66,3 +66,8 @@ function highAndLow(numbers){
     return Math.min(...lengthOfWords)
   }
 
+
+//   Test.assertEquals(XO("xxxm"),false);
+// Test.assertEquals(XO("Oo"),false);
+// Test.assertEquals(XO("ooom"),false);
+const XO = (str) => str.toLowerCase().split('x').length === str.toLowerCase().split('o').length
