@@ -16,3 +16,33 @@ function solution(str){
   }
 
 //   console.log()--> 'ab', 'cd', 'ef', 'g_' 
+
+//const abc = "abc";
+// const pattern = regexContainsAll(abc);
+// const str = "zzzaaacccbbbzzz";
+// new RegExp(pattern).test(str);  // -> true
+
+
+function regexContainsAll(str) {
+  let chars = str.split('');
+  let pattern = '';
+  chars.forEach(c => {
+    pattern += `(?=.*${c})`;
+  });
+  return pattern;
+}
+
+
+//FIND A MISSING NUMBER
+// ([1,3,4,5,6,7,8]), 2);
+// ([7,8,1,2,4,5,6]), 3);
+
+// return the missing number!
+function findNumber(array) {
+  const arr = array.reduce(
+    (acc, value, index) => [acc[0] + value, acc[1] + index],
+    [0, array.length*2+1]
+  );
+  
+  return arr[1] - arr[0]
+}
