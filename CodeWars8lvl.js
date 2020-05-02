@@ -27,3 +27,35 @@ function superSize(number){
   function lowercaseCount(str){
     return str.split('').filter(a=> /[a-z]/.test(a)).length
 }
+
+//how to count letters in a string
+function charFreq(message) {
+    let result = {}
+      message.split('').map(n=> result[n]? result[n]++ : result[n] = 1)
+    return result 
+  }
+
+ //how to concat arrays in an array
+//  ([[1,2],[3,4],[5,6]]) , "6>5>4>3>2>1")
+  function bigToSmall(arr){
+  let result = [].concat(...arr);
+  return result.sort((a,b)=>b-a).join('>') 
+}
+
+// practicing with replace method
+function correct(string){
+	return string.replace(/0/g, 'O').replace(/5/g, 'S').replace(/1/g, 'I')
+}
+//how to use switch and default 
+function getDrinkByProfession(param){
+    param = param.toLowerCase();
+    switch(param){
+    case 'jabroni': return 'Patron Tequila'
+    case 'school counselor': return 'Anything with Alcohol'
+    case 'programmer': return 'Hipster Craft Beer'
+    case 'bike gang member': return 'Moonshine'
+    case 'politician': return 'Your tax dollars'
+    case 'rapper': return 'Cristal'
+    default : return  'Beer'
+  }
+}
