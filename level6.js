@@ -129,3 +129,57 @@ function superSum(D, N) {
     }
     return t;
 }
+
+
+    // Given a list lst and a number N, create a new list that contains each number of lst at most N times without reordering. For example if N = 2, and the input is [1,2,3,1,2,1,2,3], you take [1,2,3,1,2], drop the next [1,2] since this would lead to 1 and 2 being in the result 3 times, and then take 3, which leads to [1,2,3,1,2,3].
+
+    function deleteNth(arr, x) {
+        while (true) {
+            for (var i = 0; i < arr.length; ++i) {
+                var count = 0;
+                for (var j = 0; j < arr.length; ++j) {
+                    if (arr[i] === arr[j]) {
+                        ++count;
+
+                        if (count > x) {
+                            arr.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                if (j !== arr.length) break;
+            }
+            if (i === arr.length) break;
+        }
+        return arr;
+    }
+
+  
+//     encryptThis("Hello") === "72olle"
+// encryptThis("good") === "103doo"
+// encryptThis("hello world") === "104olle 119drlo"
+function encryptThis(text) {
+    let words = text.split(' ');
+    
+    for (let i = 0; i < words.length; i++) {
+      words[i] = changeWord(words[i]);
+    }
+    
+    return words.join(' ')
+  }
+  
+  function changeWord(word) {
+    let symbols = word.split('');
+    symbols[0] = symbols[0].charCodeAt(0);
+    
+    if (word.length < 3) {  
+      return symbols.join('');
+    } else {
+      let second = symbols[1],
+          last = symbols[symbols.length - 1];
+          
+      symbols[1] = last;
+      symbols[symbols.length - 1] = second;
+      return symbols.join('');
+    }  
+  }
