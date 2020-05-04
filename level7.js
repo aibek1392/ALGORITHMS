@@ -71,3 +71,53 @@ function highAndLow(numbers){
 // Test.assertEquals(XO("Oo"),false);
 // Test.assertEquals(XO("ooom"),false);
 const XO = (str) => str.toLowerCase().split('x').length === str.toLowerCase().split('o').length
+
+
+
+// GetSum(1, 2) == 3   // 1 + 2 = 3
+// GetSum(0, 1) == 1   // 0 + 1 = 1
+const GetSum = (a, b) => {
+    let min = Math.min(a, b),
+        max = Math.max(a, b);
+    return (max - min + 1) * (min + max) / 2;
+  }
+
+  //s='FUFFDDFDUDFUFUF'
+// U=UP
+// F=FORWARD
+// D=DOWN
+// You need count how many valleys you will pass.
+// Start is always from zero level.
+// Every time you go down below 0 level counts as an entry of a valley, and as you go up to 0 level from valley counts as an exit of a valley.
+// One passed valley is equal one entry and one exit of a valley.
+
+function countingValleys(s) {
+    //here we go again
+    let level=0;
+    let valleys = 0;
+    s.split("").forEach(el=>{
+      if(level===-1&&el==="U") valleys++;
+      if(el==="D") level-=1;
+      if(el==="U") level+=1;
+    })
+    return valleys;
+  }
+
+//   Given Positive integer, N , Return true if it could be expressed as a sum of two or more consecutive positive numbers , OtherWise return false .
+//   * consecutiveDucks(9)  ==>  return (true)  //  9 , could be expressed as a sum of ( 2 + 3 + 4 ) or ( 4 + 5 ) . 
+// * consecutiveDucks(64)  ==>  return (false)
+// * consecutiveDucks(42)  ==>  return (true) //  42 , could be expressed as a sum of ( 9 + 10 + 11 + 12 )  .
+
+function consecutiveDucks(num) {
+    const keeper = [0, 1] 
+    for (let i = 2; i < (num / 2 + 1); i++) {
+      const sumOfKeeper = keeper.reduce((x, val) => {
+        return x + val 
+      }, 0)
+      if ((num - sumOfKeeper) % keeper.length === 0) {
+        return true
+      }
+      keeper.push(i)
+    }
+    return false
+  }

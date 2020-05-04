@@ -183,3 +183,7 @@ function encryptThis(text) {
       return symbols.join('');
     }  
   }
+
+  /// Test.assertSimilar(splitInteger(2, 2).sort(), [1,1]);
+    // Test.assertSimilar(splitInteger(20, 5).sort(), [4,4,4,4,4])
+    
