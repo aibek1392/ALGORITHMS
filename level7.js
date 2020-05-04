@@ -52,19 +52,19 @@ function squareDigits(num) {
 }
 
 //"4 5 29 54 4 0 -214 542 -64 1 -3 6 -6"), "542 -214");
-function highAndLow(numbers){
-    let sorted  = numbers.split(' ').sort((a,b)=> b-a )
-    return sorted[0]+ ' ' + sorted[sorted.length-1]
-  }
+function highAndLow(numbers) {
+    let sorted = numbers.split(' ').sort((a, b) => b - a)
+    return sorted[0] + ' ' + sorted[sorted.length - 1]
+}
 
-  ///Simple, given a string of words, return the length of the shortest word(s).
-  // String will never be empty and you do not need to account for different data types.
-  //Test.assertEquals(findShort("bitcoin take over the world maybe who knows perhaps"), 3);
+///Simple, given a string of words, return the length of the shortest word(s).
+// String will never be empty and you do not need to account for different data types.
+//Test.assertEquals(findShort("bitcoin take over the world maybe who knows perhaps"), 3);
 
-  function findShort(s){
-    let lengthOfWords =  s.split(' ').map(w=> w.length)
+function findShort(s) {
+    let lengthOfWords = s.split(' ').map(w => w.length)
     return Math.min(...lengthOfWords)
-  }
+}
 
 
 //   Test.assertEquals(XO("xxxm"),false);
@@ -80,9 +80,9 @@ const GetSum = (a, b) => {
     let min = Math.min(a, b),
         max = Math.max(a, b);
     return (max - min + 1) * (min + max) / 2;
-  }
+}
 
-  //s='FUFFDDFDUDFUFUF'
+//s='FUFFDDFDUDFUFUF'
 // U=UP
 // F=FORWARD
 // D=DOWN
@@ -93,15 +93,15 @@ const GetSum = (a, b) => {
 
 function countingValleys(s) {
     //here we go again
-    let level=0;
+    let level = 0;
     let valleys = 0;
-    s.split("").forEach(el=>{
-      if(level===-1&&el==="U") valleys++;
-      if(el==="D") level-=1;
-      if(el==="U") level+=1;
+    s.split("").forEach(el => {
+        if (level === -1 && el === "U") valleys++;
+        if (el === "D") level -= 1;
+        if (el === "U") level += 1;
     })
     return valleys;
-  }
+}
 
 //   Given Positive integer, N , Return true if it could be expressed as a sum of two or more consecutive positive numbers , OtherWise return false .
 //   * consecutiveDucks(9)  ==>  return (true)  //  9 , could be expressed as a sum of ( 2 + 3 + 4 ) or ( 4 + 5 ) . 
@@ -109,15 +109,24 @@ function countingValleys(s) {
 // * consecutiveDucks(42)  ==>  return (true) //  42 , could be expressed as a sum of ( 9 + 10 + 11 + 12 )  .
 
 function consecutiveDucks(num) {
-    const keeper = [0, 1] 
+    const keeper = [0, 1]
     for (let i = 2; i < (num / 2 + 1); i++) {
-      const sumOfKeeper = keeper.reduce((x, val) => {
-        return x + val 
-      }, 0)
-      if ((num - sumOfKeeper) % keeper.length === 0) {
-        return true
-      }
-      keeper.push(i)
+        const sumOfKeeper = keeper.reduce((x, val) => {
+            return x + val
+        }, 0)
+        if ((num - sumOfKeeper) % keeper.length === 0) {
+            return true
+        }
+        keeper.push(i)
     }
     return false
-  }
+}
+
+
+// Implement a function that returns the minimal and the maximal value of a list (in this order).
+function getMinMax(arr){
+    let result = []
+   let max = Math.max(...arr)
+   let min = Math.min(...arr)
+   return [...result, min, max]
+  };

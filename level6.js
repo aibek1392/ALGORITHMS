@@ -184,6 +184,18 @@ function encryptThis(text) {
     }  
   }
 
-  /// Test.assertSimilar(splitInteger(2, 2).sort(), [1,1]);
-    // Test.assertSimilar(splitInteger(20, 5).sort(), [4,4,4,4,4])
+//   I will give you a string. You respond with "VALID" if the string meets the requirements or "INVALID" if it does not.
+// Passwords must abide by the following requirements:
+// More than 3 characters but less than 20.
+// Must contain only alphanumeric characters.
+// Must contain letters and numbers.
+function validPass(password){
+    let ok = 0;
+    if(password.length < 4 || password.length > 20) return 'INVALID';
+    if(/[a-z]/g.test(password)) ok++;
+    if(/[A-Z]/g.test(password)) ok++;
+    if(/[0-9]/g.test(password)) ok++;
+    if(/[./:!'^*\s%$`]/g.test(password)) return 'INVALID';
     
+    return ok < 2 ? 'INVALID' : 'VALID';
+}
