@@ -130,3 +130,11 @@ function getMinMax(arr){
    let min = Math.min(...arr)
    return [...result, min, max]
   };
+
+  //Test.assertEquals(DNAStrand("AAAA"),"TTTT","String AAAA is");
+// Test.assertEquals(DNAStrand("ATTGC"),"TAACG","String ATTGC is");
+// Test.assertEquals(DNAStrand("GTAT"),"CATA","String GTAT is");
+// Because you will overwrite prior replaces. Anything that is lowercase is the new (already replaced/processed) value, and the caps values still need replacing/processing.
+
+
+  const DNAStrand = (dna) => dna.replace(/A/g, 't').replace(/T/g, 'a').replace(/C/g, 'g').replace(/G/g, 'c').toUpperCase()
