@@ -199,3 +199,28 @@ function validPass(password){
     
     return ok < 2 ? 'INVALID' : 'VALID';
 }
+
+
+
+////Input: "gdfgdf234dg54gf*23oP42"
+// Output: "54929268" (because 23454*2342=54929268)
+function calculateString(str){
+    const signs = ['*', '/', '+', '-', '.'];
+    const expression = str.split('')
+      .filter((symbol) => !isNaN(+symbol) || signs.includes(symbol))
+      .join('');
+    
+    return Math.round(eval(expression))
+      .toString();
+};
+
+
+//Input: 129  => Output: 130 (10000001 => 10000010)
+// Input: 127 => Output: 191 (01111111 => 10111111)
+function nextHigher(n) {
+    start = n.toString(2).match(/1/g).length;
+    do {
+      n++;
+    } while (start != n.toString(2).match(/1/g).length);
+    return n;
+  }
