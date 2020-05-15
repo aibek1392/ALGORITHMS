@@ -65,3 +65,45 @@ function getDrinkByProfession(param) {
     default: return 'Beer'
   }
 }
+
+//write me a function stringy that takes a size and returns a string of alternating '1s' and '0s'.
+
+// the string should start with a 1.
+
+// a string with size 6 should return :'101010'.
+function stringy(size) {
+  var str = ''
+  for(let i=1; i<=size ; i++){
+    str+= i%2
+  }
+  return str
+}
+
+//3 needs to become $3.00
+// 3.1 needs to become $3.10
+function formatMoney(amount){
+  return '$' + amount.toFixed(2);
+}
+
+//generateRange(2, 10, 2) // should return array of [2,4,6,8,10]
+// generateRange(1, 10, 3) // should return array of [1,4,7,10]
+function generateRange(min, max, step){
+  var array = [];
+  for (var i = min; i <= max; i += step) {
+    array.push(i);
+  }
+  return array;
+}
+
+
+// how to use atornery statement if...else
+function saleHotdogs(n){
+  return n < 5 ? n*100 : n >= 5 && n< 10? n*95 : n>=10 ? n*90 : null
+}
+
+
+///remove exlamination sign n times 
+function remove(s,n){
+  for(let i = 0; i<n; i++) s = s.replace('!', '')
+ return s
+}
