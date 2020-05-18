@@ -77,17 +77,17 @@ var romanToInt = function (s) {
 // Given nums = [0,0,1,1,1,2,2,3,3,4],
 // Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.
 // It doesn't matter what values are set beyond the returned length.
-var removeDuplicates = function(nums) {
-  let p1 = 0,lastVal =nums[0] -1;
+var removeDuplicates = function (nums) {
+  let p1 = 0, lastVal = nums[0] - 1;
   for (let i = 0; i < nums.length; i++) {
-   if (nums[i] != lastVal) {
-    nums[p1] = nums[i];
-    lastVal = nums[i]
-    p1 +=1;
+    if (nums[i] != lastVal) {
+      nums[p1] = nums[i];
+      lastVal = nums[i]
+      p1 += 1;
+    }
   }
- }
-nums.length = p1;
-console.log(nums);
+  nums.length = p1;
+  console.log(nums);
 };
 
 let arr = [1, 1, 2]
@@ -98,29 +98,26 @@ removeDuplicates(arr);
 // Input: "babad"
 // Output: "bab"
 // Note: "aba" is also a valid answer
-var longestPalindrome = function(s) {
+var longestPalindrome = function (s) {
   let palindromes = [];
-
-  if(s.length <= 1) {
-      return s;
+  if (s.length <= 1) {
+    return s;
   }
-
   for (var i = 0; i < s.length; i += 1) {
     j = 0;
     k = 0;
-    while(s[i + j] === s[i - j] && s[i + j] && s[i - j]) {
+    while (s[i + j] === s[i - j] && s[i + j] && s[i - j]) {
       j++;
     };
-    palindromes.push(s.slice(i-(j-1), i+j)) //even palindromes
+    palindromes.push(s.slice(i - (j - 1), i + j)) //even palindromes
     j = 0;
-
-    while(s[(i + 1) + k] === s[i - k] && s[(i + 1) + k] && s[i - k]){
+    while (s[(i + 1) + k] === s[i - k] && s[(i + 1) + k] && s[i - k]) {
       k++;
     }
-    palindromes.push(s.slice(i-(k-1),(i+1)+k)) //odd palindromes
+    palindromes.push(s.slice(i - (k - 1), (i + 1) + k)) //odd palindromes
     k = 0;
   }
   return palindromes.sort((a, b) => {
-      return b.length - a.length
-  })[0]; 
+    return b.length - a.length
+  })[0];
 };
