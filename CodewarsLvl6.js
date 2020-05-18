@@ -34,3 +34,23 @@ const josephus = (items, k) => {
     }
     return res;
   }
+
+
+
+  //as a string (example: "2/3" in Ruby, Python, Clojure, JS, CS, Go)
+// or as two strings (example: "2" "3" in Haskell, Java, CSharp, C++, Swift)
+  function decompose(n) {
+    var [a, b] = isNaN(n) ? n.split('/').map(Number) : [Number(n), 1], res = [];
+    while(a%1) [a, b] = [a*10, b*10];
+    if (a>b) {
+      res.push(String(a/b>>0));
+      a %= b;
+    }
+    while(a>0){
+      var dv = Math.ceil(b/a);
+      res.push('1/'+dv);
+      [a, b] = [a*dv-b, b*dv];
+    }
+    return res;
+  }
+
