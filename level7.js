@@ -138,3 +138,32 @@ function getMinMax(arr){
 
 
   const DNAStrand = (dna) => dna.replace(/A/g, 't').replace(/T/g, 'a').replace(/C/g, 'g').replace(/G/g, 'c').toUpperCase()
+
+
+
+//creat function accum that does this:
+//   accum("abcd") -> "A-Bb-Ccc-Dddd"
+// accum("RqaEzty") -> "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+// accum("cwAt") -> "C-Ww-Aaa-Tttt"
+function accum(s) {
+    let result = ''
+    for (let i = 0; i < s.length; i++) {
+      for (let j = 0; j < i + 1; j++) {
+        if (j == 0) {
+          result += s[i].toUpperCase()
+        } else {
+          result += s[i].toLowerCase();
+        }
+      }
+      if (i !== s.length - 1) {
+        result += '-'
+      }
+    }
+    return result
+  }
+
+  //"riley" --> "Hello Riley!"
+// "JACK"  --> "Hello Jack!"
+  var greet = function(name) {
+    return "Hello " + name.charAt(0).toUpperCase() + name.slice(1).toLowerCase() + '!'
+  };
