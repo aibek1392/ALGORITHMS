@@ -54,3 +54,47 @@ function decompose(n) {
   return res;
 }
 
+
+// find an odd number in array of integers
+function findOdd(arr) {
+  var result, num = 0;
+  arr = arr.sort();
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === arr[i + 1]) {
+      num++;
+    } else {
+      num++;
+      if (num % 2 != 0) {
+        result = arr[i];
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+// Build Tower by the following given argument:
+// number of floors (integer and always greater than 0).
+// Tower block is represented as *
+function towerBuilder(nFloors) {
+  var tower = [];
+  for (var i = 0; i < nFloors; i++) {
+    tower.push(" ".repeat(nFloors - i - 1)
+      + "*".repeat((i * 2) + 1)
+      + " ".repeat(nFloors - i - 1));
+  }
+  return tower;
+}
+
+// Test.assertSimilar(multiplicationTable(3), [[1,2,3], [2,4,6], [3,6,9]]);
+multiplicationTable = function(size) {
+  var result = [];
+  for (var i = 0; i < size; i++) {
+    result[i] = [];
+    for(var j = 0; j < size; j++) {
+      result[i][j] = (i + 1) * (j + 1);
+    }
+  }
+  
+  return result
+}
