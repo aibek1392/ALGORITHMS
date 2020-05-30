@@ -87,42 +87,75 @@ function towerBuilder(nFloors) {
 }
 
 // Test.assertSimilar(multiplicationTable(3), [[1,2,3], [2,4,6], [3,6,9]]);
-multiplicationTable = function(size) {
+multiplicationTable = function (size) {
   var result = [];
   for (var i = 0; i < size; i++) {
     result[i] = [];
-    for(var j = 0; j < size; j++) {
+    for (var j = 0; j < size; j++) {
       result[i][j] = (i + 1) * (j + 1);
     }
   }
-  
+
   return result
 }
 
 
 function meetingTime(Ta, Tb, r) {
   if (Ta * Tb == 0) return !Tb && Ta ? Math.abs(Ta).toFixed(2) : Math.abs(Tb).toFixed(2)
-  
+
   let [speed1, speed2] = [Ta, Tb].map(t => Math.abs(2 * Math.PI * r / t))
-  
+
   if (speed1 == speed2) return Math.abs(Ta).toFixed(2)
-  
+
   let relSpeed = Ta * Tb > 0 ? Math.abs(speed1 - speed2) : Math.abs(speed1 + speed2)
   return (2 * Math.PI * r / relSpeed).toFixed(2)
 }
 
 function countAdjacentPairs(searchString) {
   this.count = 0;
-  if(searchString != ''){
+  if (searchString != '') {
     this.arr = searchString.toLowerCase().split(" ");
-    for(var i = 0; i < this.arr.length; i++){
-      if(this.arr[i+1] === this.arr[i]){
+    for (var i = 0; i < this.arr.length; i++) {
+      if (this.arr[i + 1] === this.arr[i]) {
         this.count++;
         i++;
       }
     }
     return this.count;
-  }else{
+  } else {
     return 0;
   }
+}
+
+// TITLES = ['Rocky 1', 'Rocky 2', 'My Little Poney']
+// search('ock') --> ['Rocky 1', 'Rocky 2']
+
+function search(searchTerm) {
+  var search = new RegExp(searchTerm, 'i');
+
+  return TITLES.filter(function (title) {
+    return search.test(title);
+  });
+}
+
+
+// encode("mer", 6015)  -->  "6015ekx"
+// m --> 12,   12 * 6015 % 26 = 4,    4  --> e
+// e --> 4,     4 * 6015 % 26 = 10,   10 --> k
+// r --> 17,   17 * 6015 % 26 = 23,   23 --> x
+// So we get "ekx", hence the output is "6015ekx"
+
+function decode(r) {
+  let a = "abcdefghijklmnopqrstuvwxyz"
+  let m = r.match(/(\d+)([a-z]+)/);
+  let nb = parseInt(m[1]) % 26;
+  let s = m[2];
+  let dict = { 3: 9, 9: 3, 21: 5, 5: 21, 7: 15, 15: 7, 11: 19, 19: 11, 17: 23, 23: 17, 25: 25, 1: 1 }
+  let n = dict[nb];
+  if (n === undefined)
+    return "Impossible to decode";
+  var res = "";
+  for (let c of s)
+    res += a[(a.indexOf(c) * n) % 26];
+  return res;
 }
