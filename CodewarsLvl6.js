@@ -98,3 +98,31 @@ multiplicationTable = function(size) {
   
   return result
 }
+
+
+function meetingTime(Ta, Tb, r) {
+  if (Ta * Tb == 0) return !Tb && Ta ? Math.abs(Ta).toFixed(2) : Math.abs(Tb).toFixed(2)
+  
+  let [speed1, speed2] = [Ta, Tb].map(t => Math.abs(2 * Math.PI * r / t))
+  
+  if (speed1 == speed2) return Math.abs(Ta).toFixed(2)
+  
+  let relSpeed = Ta * Tb > 0 ? Math.abs(speed1 - speed2) : Math.abs(speed1 + speed2)
+  return (2 * Math.PI * r / relSpeed).toFixed(2)
+}
+
+function countAdjacentPairs(searchString) {
+  this.count = 0;
+  if(searchString != ''){
+    this.arr = searchString.toLowerCase().split(" ");
+    for(var i = 0; i < this.arr.length; i++){
+      if(this.arr[i+1] === this.arr[i]){
+        this.count++;
+        i++;
+      }
+    }
+    return this.count;
+  }else{
+    return 0;
+  }
+}
