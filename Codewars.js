@@ -46,3 +46,33 @@ function findNumber(array) {
   
   return arr[1] - arr[0]
 }
+
+
+// howManyPalindromes('aaa'); // 6 ('a', 'a', 'a', 'aa', 'aa', 'aaa')
+//   howManyPalindromes('abccba'); // 9 ('a', 'a', 'b', 'b', 'c', 'c', 'cc', 'bccb', 'abccba')
+
+function howManyPalindromes(s) {
+  console.log(s)
+  counts = s.length
+  if (s[0].repeat(s.length) == s)
+      return s.length * (s.length + 1) / 2
+  for (i = 2; i <= s.length; i++)
+      for (j = 0; j <= s.length - i; j++) {
+          counts++
+          for (k = 0; k < i / 2; k++)
+              if (s[j + k] != s[j + i - k - 1]) {
+                  counts--
+                  break
+              }
+      }
+  return counts
+}
+
+// Your task is to check wheter a given integer is a perfect power. If it is a perfect power, return a pair m and k with mk = n as a proof. Otherwise return Nothing, Nil, null, NULL, None or your language's equivalent.
+var isPP = function(n){
+  for (var m = 2; m <= Math.floor(Math.sqrt(n)); ++m) {
+    var k = Math.round(Math.log(n) / Math.log(m))
+    if (Math.pow(m, k) == n) return [m, k];
+  }
+  return null;
+}
