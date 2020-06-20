@@ -123,57 +123,85 @@ var longestPalindrome = function (s) {
 };
 
 
-var removeNthFromEnd = function(head, n) {
+var removeNthFromEnd = function (head, n) {
   var list = [],
-      currentNode = head;
-  while(currentNode.next !== null) {
-      list.push(currentNode);
-      currentNode = currentNode.next;
+    currentNode = head;
+  while (currentNode.next !== null) {
+    list.push(currentNode);
+    currentNode = currentNode.next;
   }
   list.push(currentNode);
-  if (list.length -n - 1 >= 0 && list.length -n + 1 < list.length) {
-      list[list.length - n - 1].next = list[list.length -n + 1];
-      return list[0];
+  if (list.length - n - 1 >= 0 && list.length - n + 1 < list.length) {
+    list[list.length - n - 1].next = list[list.length - n + 1];
+    return list[0];
   }
-  if(list.length - n - 1 < 0) {
-      return list.length <=1 ? [] : list[1]
+  if (list.length - n - 1 < 0) {
+    return list.length <= 1 ? [] : list[1]
   }
 
   if (list.length - n + 1 >= list.length) {
-      list[list.length - n - 1 ].next = null;
-      return list[0];
+    list[list.length - n - 1].next = null;
+    return list[0];
   }
-  
+
 }
 
 
-var longestPalindrome = function(s) {
+var longestPalindrome = function (s) {
   let palindromes = [];
 
-  if(s.length <= 1) {
-      return s;
+  if (s.length <= 1) {
+    return s;
   }
 
-//   Input: "babad"
-// Output: "bab"
-// Note: "aba" is also a valid answer.
-  
+  //   Input: "babad"
+  // Output: "bab"
+  // Note: "aba" is also a valid answer.
+
   for (var i = 0; i < s.length; i += 1) {
     j = 0;
     k = 0;
-    while(s[i + j] === s[i - j] && s[i + j] && s[i - j]) {
+    while (s[i + j] === s[i - j] && s[i + j] && s[i - j]) {
       j++;
     };
-    palindromes.push(s.slice(i-(j-1), i+j)) //even palindromes
+    palindromes.push(s.slice(i - (j - 1), i + j)) //even palindromes
     j = 0;
 
-    while(s[(i + 1) + k] === s[i - k] && s[(i + 1) + k] && s[i - k]){
+    while (s[(i + 1) + k] === s[i - k] && s[(i + 1) + k] && s[i - k]) {
       k++;
     }
-    palindromes.push(s.slice(i-(k-1),(i+1)+k)) //odd palindromes
+    palindromes.push(s.slice(i - (k - 1), (i + 1) + k)) //odd palindromes
     k = 0;
   }
   return palindromes.sort((a, b) => {
-      return b.length - a.length
-  })[0]; 
+    return b.length - a.length
+  })[0];
+};
+
+// naive version using pointer n^2
+var twoSum = function(nums, target) {
+  // let result = [];
+  for(let i = 0; i<nums.length; i++){
+      for(let j = i + 1; j < nums.length; j++){
+        if(nums[i] + nums[j] === target){
+           return [i, j]
+        }  
+      }
+  }
+  
+};
+
+//Two sum problem, the best way using hash
+
+
+var twoSum = function(nums, target) {
+  let map = {}
+  for (let i = 0; i < nums.length; i++) {
+    let complement = target - nums[i] 
+    if (map[complement]) { // checking if it exists (if i saw it already)
+      return [map[complement], i] // return both their indices
+    } else {
+      map[complement] = i
+    }
+  }
 };
