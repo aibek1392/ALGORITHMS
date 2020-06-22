@@ -179,29 +179,70 @@ var longestPalindrome = function (s) {
 };
 
 // naive version using pointer n^2
-var twoSum = function(nums, target) {
+var twoSum = function (nums, target) {
   // let result = [];
-  for(let i = 0; i<nums.length; i++){
-      for(let j = i + 1; j < nums.length; j++){
-        if(nums[i] + nums[j] === target){
-           return [i, j]
-        }  
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j]
       }
+    }
   }
-  
+
 };
 
 //Two sum problem, the best way using hash
 
 
-var twoSum = function(nums, target) {
+var twoSum = function (nums, target) {
   let map = {}
   for (let i = 0; i < nums.length; i++) {
-    let complement = target - nums[i] 
+    let complement = target - nums[i]
     if (map[complement]) { // checking if it exists (if i saw it already)
       return [map[complement], i] // return both their indices
     } else {
       map[complement] = i
     }
   }
+};
+
+
+//contains duplicate
+function checkIfArrayIsUnique(myArray) {
+  for (var i = 0; i < myArray.length; i++) {
+    for (var j = 0; j < myArray.length; j++) {
+      if (i != j) {
+        if (myArray[i] == myArray[j]) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+//Valid AN
+
+var isAnagram = function (s, t) {
+  if (s.length !== t.length)
+    result false;
+  const result1 = [];
+  result1.length = 26;
+  result1.fill(0);
+
+  const result2 = [];
+  result2.length = 26;
+  result2.fill(0);
+
+  for (let i = 0; i < s.length; i++) {
+    result1[s.charCodeAt(i) - 97]++;
+    result2[t.charCodeAt(i) - 97]++;
+  }
+
+  for (let i = 0; i < result1.length; i++) {
+    if (result1[i] !== result2[i]) {
+      return false;
+    }
+  }
+  return true;
 };
