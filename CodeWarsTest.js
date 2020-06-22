@@ -20,9 +20,29 @@ function findOutlier(integers) {
 function getMiddle(string) {
     var middleIndex = string.length / 2;
     if (string.length % 2 == 0) {
-      return string.slice(middleIndex - 1, middleIndex + 1);
+        return string.slice(middleIndex - 1, middleIndex + 1);
     } else {
-      return string.charAt(middleIndex);
+        return string.charAt(middleIndex);
     }
-  }
+}
+
+
+function reverseInParens(text) {
+    let stack = [], nxt = 1, d = {}
+    for (let symbol of text) {
+        if (symbol == ')') {
+            let opening = stack.lastIndexOf('(')
+            stack.push(...[nxt].concat(stack.splice(opening).slice(1).reverse()).concat([nxt++]))
+        }
+        else stack.push(symbol)
+    }
+
+    for (let i = 0; i < stack.length; i++) {
+        if (+stack[i]) {
+            if (d[stack[i]]) stack[i] = ')'
+            else d[stack[i]] = 1, stack[i] = '('
+        }
+    }
+    return stack.join``
+}
 
