@@ -46,3 +46,36 @@ function reverseInParens(text) {
     return stack.join``
 }
 
+
+function rotateCode(a) {
+    return Object.keys(a[0]).map(c => a.map(r => r[c])).map(i => i.reverse())
+  }
+  
+  function code(s) {
+    if (s.length == 0) return ''
+    let l = s.length
+    let n = Math.ceil(Math.sqrt(s.length))
+    
+    s += String.fromCharCode(11).repeat(n*n - l)
+    
+    let newS = s[0]
+    for (let i = 1; i < s.length; i++) {
+      if (i%n == 0) {
+        newS += '\n'
+      }
+      newS += s[i]
+    }
+    return rotateCode(newS.split('\n')).map(row => row.join('')).join('\n')
+  }
+  
+  function rotateDecode(a) {
+    a = a.map(i => i.split('').reverse().join(''))
+    return Object.keys(a[0]).map(c => a.map(r => r[c]))
+  }
+  
+  function decode(s) {
+    if (s.length == 0) return ''
+    s = rotateDecode(s.split('\n')).map(row => row.join('')).join('\n')
+    let newS = s.replace(/[\n\v]/g, '')
+    return newS
+  }
