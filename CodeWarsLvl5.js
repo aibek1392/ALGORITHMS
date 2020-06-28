@@ -38,3 +38,23 @@ function ulamSequence(n1, n2, q) {
     }
     return tome;
 }
+
+
+// Challenge Fun #7: N To The N
+function n2n(n, k) {
+    let pow = (b, e, m) => {
+        if (m == 1n)
+            return 0
+        let r = 1n;
+        b = b % m;
+        while (e > 0n) {
+            if (e % 2n == 1n) {
+                r = (r * b) % m;
+            }
+            e = e >> 1n;
+            b = (b * b) % m;
+        }
+        return r;
+    }
+    return ("00000000" + pow(BigInt(n), BigInt(n), 1000000000n)).substr(-k);
+}
