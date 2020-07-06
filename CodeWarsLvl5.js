@@ -58,3 +58,17 @@ function n2n(n, k) {
     }
     return ("00000000" + pow(BigInt(n), BigInt(n), 1000000000n)).substr(-k);
 }
+
+
+function dirReduc(plan) {
+    var opposite = {
+        'NORTH': 'SOUTH', 'EAST': 'WEST', 'SOUTH': 'NORTH', 'WEST': 'EAST'
+    };
+    return plan.reduce(function (dirs, dir) {
+        if (dirs[dirs.length - 1] === opposite[dir])
+            dirs.pop();
+        else
+            dirs.push(dir);
+        return dirs;
+    }, []);
+}
