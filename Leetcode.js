@@ -355,3 +355,4 @@ var longestPalindrome = function(s) {
       return b.length - a.length
   })[0]; 
 };
+
