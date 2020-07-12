@@ -103,3 +103,52 @@ function consecKprimes(k, arr) {
         return count;
     }
 }
+
+
+
+
+// Prime Fan #1 solution
+function isPrime(num) {
+    if (num < 2) return false;
+    if (num === 2 || num === 3) return true;
+    if (num % 6 != 1 && num % 6 != 5) return false
+    var n = parseInt(Math.sqrt(num));
+    for (var i = 5; i < n + 1; i += 6) {
+        if (num % i === 0 || num % (i + 2) === 0) return false
+    }
+    return true
+}
+
+function primeSumPair(input) {
+    var nums = [].concat(input)
+    var first = nums.shift();
+    var paths = []
+    for (var i = 0; i < nums.length; i++) {
+        var x = nums[i];
+        if (isPrime(first + x)) {
+            var copy = nums.map(v => v)
+            copy.splice(i, 1);
+            paths.push({ 'groups': [[first, x]], 'rest': copy })
+        }
+    }
+    while (paths.length) {
+        var new_paths = []
+        for (path of paths) {
+            if (path.rest.length === 0) return path.groups;
+            var a = path.rest.shift();
+            for (var i = 0; i < path.rest.length; i++) {
+                if (isPrime(a + path.rest[i])) {
+                    var new_path = {};
+                    new_path.groups = [].concat(path.groups);
+                    var copy = [].concat(path.rest);
+                    copy.splice(i, 1);
+                    new_path.groups.push([a, path.rest[i]]);
+                    new_path.rest = copy;
+                    new_paths.push(new_path);
+                }
+            }
+        }
+        paths = new_paths
+    }
+    return []
+}
