@@ -119,6 +119,9 @@ function isPrime(num) {
     return true
 }
 
+
+//
+
 function primeSumPair(input) {
     var nums = [].concat(input)
     var first = nums.shift();
@@ -152,3 +155,23 @@ function primeSumPair(input) {
     }
     return []
 }
+
+
+//Esolang Stick
+function interpreter(tape) {
+    const stack = [0];
+    let output = '';
+    for (let ip = 0; ip < tape.length; ip++) {
+      let last = stack.length - 1;
+      switch (tape[ip]) {
+          case '^': { if (stack.length < 2) throw 'Empty stack!'; stack.pop(); break; }
+          case '!': { stack.push(0); break; }
+          case '+': { stack[last] = (stack[last] + 1) % 256; break; }
+          case '-': { stack[last] = stack[last] ? stack[last] - 1 : 255; break; }
+          case '*': { output += String.fromCharCode(stack[last]); break; }
+          case '[': { if (!stack[last]) while (tape[ip] !== ']') ip++; break; }
+          case ']': { if (stack[last]) while (tape[ip] !== '[') ip--; break; }
+      }
+    }
+    return output;
+  }
