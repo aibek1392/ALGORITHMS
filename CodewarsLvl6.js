@@ -191,3 +191,31 @@ function speed(d, mu) {
   let x = 2 * mu * 9.81;
   return (-x + Math.sqrt(x * x + 4 * d * x)) * 36 / 20;
 }
+
+
+//The Walker Solution
+function solve(a, b, c, alpha, beta, gamma) {
+  let firstAngle = 90 + beta - gamma;
+  let secondAngle = 90 + alpha - beta;
+  let eSide = Math.sqrt(
+    b * b + c * c - 2 * b * c * Math.cos((firstAngle * Math.PI) / 180)
+  );
+  let secAngleOne =
+    secondAngle -
+    (Math.acos((eSide * eSide + b * b - c * c) / (2 * eSide * b)) * 180) /
+      Math.PI;
+
+  let x = Math.sqrt(
+    eSide * eSide +
+      a * a -
+      2 * eSide * a * Math.cos((secAngleOne * Math.PI) / 180)
+  );
+  let tocAngle =
+    alpha+(Math.acos((a * a + x * x - eSide * eSide) / (2 * a * x)) * 180) / Math.PI;
+
+  let min = (tocAngle - Math.floor(tocAngle))*60;
+
+  let sec = (min - Math.floor(min))*60; 
+
+  return [Math.round(x), Math.floor(tocAngle), Math.floor(min), Math.floor(sec)]
+}

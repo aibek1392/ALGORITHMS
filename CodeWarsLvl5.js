@@ -72,3 +72,34 @@ function dirReduc(plan) {
         return dirs;
     }, []);
 }
+
+
+
+//MongoDB ObjectID
+var Mongo = {
+    isValid: function (objectId) {
+        return typeof objectId === 'string' && !!objectId.match(/^[a-f0-9]{24}$/);
+    },
+    getTimestamp: function (objectId) {
+        if (!this.isValid(objectId)) {
+            return false;
+        }
+        return new Date(parseInt(objectId.substr(0, 8), 16) * 1000);
+    }
+};
+
+//Consecutive k-Primes
+function consecKprimes(k, arr) {
+    return arr.map(countPrimes).reduce((a, b, i, array) => i > 0 && b == k && array[i - 1] == k ? a + 1 : a, 0);
+
+    function countPrimes(num) {
+        var count = 0;
+        for (var i = 2; i <= num; i++) {
+            while (num % i == 0) {
+                num /= i;
+                count++;
+            }
+        }
+        return count;
+    }
+}
