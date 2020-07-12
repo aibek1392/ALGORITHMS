@@ -219,3 +219,29 @@ function solve(a, b, c, alpha, beta, gamma) {
 
   return [Math.round(x), Math.floor(tocAngle), Math.floor(min), Math.floor(sec)]
 }
+
+
+
+//Consecutive Strings
+function longestConsec(strarr, k) {
+  var longest = "";
+  for (var i = 0; k > 0 && i <= strarr.length - k; i++) {
+      var tempArray = strarr.slice(i, i + k);
+      var tempStr = tempArray.join("");
+      if (tempStr.length > longest.length) {
+          longest = tempStr;
+      }
+  }
+  return longest;
+}
+
+//Meeting solution 
+function meeting(s) {
+
+  return s.toUpperCase().split(';').map((str) => {
+    return str.split(':').reverse();
+  }).sort().map((arr) => {
+    return "(" + arr.join(', ') + ")";
+  }).join('');
+
+}
