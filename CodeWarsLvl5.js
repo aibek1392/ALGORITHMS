@@ -176,3 +176,77 @@ function interpreter(tape) {
     return output;
 }
 
+
+
+
+const InterlacedSpiralCipher = {};
+
+InterlacedSpiralCipher.encode = function(j){
+console.log("encode", j);
+if(!j || j.length < 1){return ""}
+  var str = j.slice();
+  var size = Math.ceil(Math.sqrt(str.length));
+   str = (str+ " ".repeat(Math.pow(size,2)-str.length)).split("");
+  var layer = 0;
+   var grid = []
+   for(var i = 0; i < size; i++){grid.push(Array(size).fill(100))}
+   var dir = [[0,1],[1,0],[0,-1],[-1,0]]
+   var c = corners(size, 0);
+   var done = false;
+   while(str.length > 0 ){
+    for(var i = 0; i < c.length; i++){
+    
+    var [y,x] = c[i];
+    if(grid[y][x] != 100){ layer++; c = corners(size, layer); [y,x] = c[i];}
+    if(!grid[y] || !grid[y][x] || grid[y][x] != 100){done = true; break;}
+       grid[y][x]=str.shift();
+       c[i] = [c[i][0]+dir[i][0], c[i][1]+dir[i][1]];
+    }
+    if(done){break}
+   }
+   return grid.map(e=>e.join("")).join("");
+  
+};
+
+InterlacedSpiralCipher.decode = function(j){
+console.log("decode", j);
+if(!j || j.length < 1){return ""}
+   var grid = [];
+   var size = Math.sqrt(j.length)
+   var str = j.slice()+" ".repeat(Math.pow(size,2)-j.length)
+   var s=str.slice().split("");
+   for(var i = 0; i < size; i++){
+    grid.push(s.splice(0,size));
+   }
+   str=str.split("");
+  
+   var res = "";
+   var layer = 0;
+   var dir = [[0,1],[1,0],[0,-1],[-1,0]]
+   var c = corners(size, 0);
+   var done = false
+   while(!done){
+    for(var i = 0; i < c.length; i++){
+    
+    var [y,x] = c[i];
+    
+    if(!grid[y] || !grid[y][x] || y >= size || x >=size){ layer++; c = corners(size, layer); [y,x] = c[i];}
+       
+      // console.log(y,x, res)
+       if(!grid[y] || !grid[y][x]){done = true; break; }
+      res+=grid[y][x]
+       grid[y][x]=false
+       c[i] = [c[i][0]+dir[i][0], c[i][1]+dir[i][1]];
+       str.pop();
+    }
+    
+   }
+   
+   return res.trim();
+};
+
+
+function corners(size,layer){
+  return [[layer,layer],[layer,size-layer-1],[size-layer-1,size-layer-1],[size-layer-1,layer]];
+  
+ }
