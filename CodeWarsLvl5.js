@@ -250,3 +250,24 @@ function corners(size,layer){
   return [[layer,layer],[layer,size-layer-1],[size-layer-1,size-layer-1],[size-layer-1,layer]];
   
  }
+
+
+
+ function submatrix(matrix) {
+    const n = matrix.length;
+    const subIndices = [...Array(n + 1)].map(() => []);
+    for (let i = 1; i < 1 << n; i++) {
+      const t = [...i.toString(2)].reverse().map((d, j) => [+d, j]).filter(p => p[0]).map(p => p[1]);
+      subIndices[t.length].push(t);
+    }
+  
+    const cmp = (a, b, c = [].concat(...b)) => [].concat(...a).reduce((r, x, i) => r || x - c[i], 0);
+    const r = [];
+    for (let k = 1; k <= n; k++) {
+      const subs = [].concat(...subIndices[k].map(rs => 
+                                  subIndices[k].map(cs =>
+                                    rs.map(i => cs.map(j => matrix[i][j])))));
+      r.push(...subs.sort(cmp).filter((a, i, s) => i === 0 || cmp(a, s[i - 1]) !== 0));
+    }
+    return r;
+  }
