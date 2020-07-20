@@ -224,3 +224,19 @@ function nextHigher(n) {
     } while (start != n.toString(2).match(/1/g).length);
     return n;
   }
+///////////Parabolic Arc Length
+  function lenCurve(n) {
+    function seglg() {
+        return Math.sqrt(Math.pow(n, 2) + 4 * Math.pow(k, 2) + 4 * k + 1) / Math.pow(n, 2);
+    }
+    var s = 0;
+    for (var k = 0; k < n; k++) {
+        s += seglg();
+    }
+    return Math.floor(s * 1e9) / 1e9;
+}
+//casino chips working with sort method 
+function solve(arr){
+    var [a,b,c] = arr.sort((x,y)=>x-y)
+    return c-b>a?b+Math.min(c-b,a):~~((a+b+c)/2)
+}
