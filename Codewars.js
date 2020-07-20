@@ -97,3 +97,21 @@ const GetFormat = elList => {
 };
 
 const Format = GetFormat([]);
+
+
+//remove number game 
+function removeNumberGame(n, d) {
+  if (d == 0) return 0;
+  if (n < 10) return 0;
+
+  let result = 0;
+  for (let i = 0; i < n.length; i++) {
+    let turn = n.split('').filter((elem, index) => index != i).join('');
+    if (+turn == 0) continue;
+    if (turn % d == 0) {
+      let depth = removeNumberGame(turn, d - 1) + 1;
+      if (depth > result) result = depth;
+    }
+  }
+  return result;
+}
