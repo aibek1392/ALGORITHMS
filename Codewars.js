@@ -115,3 +115,27 @@ function removeNumberGame(n, d) {
   }
   return result;
 }
+
+
+//unique number sequence
+function findNum(n) {
+  const result = [];
+  let count = 0;
+  while (result.length !== n + 1) {
+    if (!result.includes(count) && !includes(result[result.length - 1], count)) {
+      result.push(count);
+      count = 0;
+    }
+    count += 1;
+  }
+  return result[n];
+}
+
+function includes(a, b) {
+  const arrA = String(a).split('');
+  const arrB = String(b).split('');
+  for (let i = 0; i < arrB.length; i += 1) {
+    if (arrA.includes(arrB[i])) return true;
+  }
+  return false;
+}
