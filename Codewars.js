@@ -168,3 +168,22 @@ function buddy(start, limit) {
   }
   return "Nothing"
 }
+
+
+
+//Factorial decomposition
+function decomp(n) {
+  let r = {}
+  for (let nb = 2; nb <= n; nb++) {
+    let m = nb
+    for (var mb = 2; mb <= m; mb++){
+      while(m % mb === 0) {
+        m /= mb
+        r[mb] = (r[mb] || 0) + 1
+      }
+    }
+    if (m > 1) 
+      r[m] = (r[m] || 0) + 1
+  }
+  return Object.keys(r).map(e => r[e] > 1 ? e +"^" + r[e] : e).join` * `
+}
