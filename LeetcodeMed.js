@@ -104,24 +104,39 @@ var uniform = function (str) {
 
 
 ///////
-var levelOrder = function(root) {
+var levelOrder = function (root) {
     if (!root) return [];
-  
+
     const res = [];
     const q = [];
     q.push(root);
-  
-    while(q.length) {
-      const lvl = [];
-      const size = q.length;
-  
-      for (let i = 0; i < size; i++) {
-        const node = q.shift();
-        lvl.push(node.val);
-        if (node.left) q.push(node.left);
-        if (node.right) q.push(node.right);
-      }
-      res.push(lvl);
+
+    while (q.length) {
+        const lvl = [];
+        const size = q.length;
+
+        for (let i = 0; i < size; i++) {
+            const node = q.shift();
+            lvl.push(node.val);
+            if (node.left) q.push(node.left);
+            if (node.right) q.push(node.right);
+        }
+        res.push(lvl);
     }
     return res;
-  };
+};
+
+
+///Word frequency
+function wordFreq(string) {
+    var words = string.replace(/[.]/g, '').split(/\s/);
+    var freqMap = {};
+    words.forEach(function (w) {
+        if (!freqMap[w]) {
+            freqMap[w] = 0;
+        }
+        freqMap[w] += 1;
+    });
+
+    return freqMap;
+}
