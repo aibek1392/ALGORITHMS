@@ -51,3 +51,36 @@ function revereBits(A) {
     return reverse;
 
 }
+
+
+
+
+//Linear Scan solution
+var searchRange = function (nums, target) {
+    let left = -1, right = -1;
+
+    // Find the first position of the target from the left
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === target) {
+            left = i;
+            break;
+        }
+    }
+    // If last for loop reaches end and not found a target, return error [-1,-1]
+    if (left === -1) return [-1, -1];
+
+    // Find the last position of the target from the right
+    //
+    // Condition i >= left takes care of cases like:
+    //  ex. let nums = [1], target = 1;             // Output: [0, 0]
+    //  ex. let nums = [1,3], target = 1;           // Output: [0, 0]
+    //
+    for (let i = nums.length - 1; i >= left; i--) {
+        if (nums[i] === target) {
+            right = i;
+            break;
+        }
+    }
+
+    return [left, right];
+};
