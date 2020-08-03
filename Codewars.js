@@ -187,3 +187,16 @@ function decomp(n) {
   }
   return Object.keys(r).map(e => r[e] > 1 ? e +"^" + r[e] : e).join` * `
 }
+
+
+var twoSum = function(nums, target) {
+  let map = {}
+  for (let i = 0; i < nums.length; i++) {
+    let complement = target - nums[i] 
+    if (map[complement]) { // checking if it exists (if i saw it already)
+      return [map[complement], i] // return both their indices
+    } else {
+      map[complement] = i
+    }
+  }
+};
