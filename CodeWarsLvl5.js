@@ -181,93 +181,111 @@ function interpreter(tape) {
 
 const InterlacedSpiralCipher = {};
 
-InterlacedSpiralCipher.encode = function(j){
-console.log("encode", j);
-if(!j || j.length < 1){return ""}
-  var str = j.slice();
-  var size = Math.ceil(Math.sqrt(str.length));
-   str = (str+ " ".repeat(Math.pow(size,2)-str.length)).split("");
-  var layer = 0;
-   var grid = []
-   for(var i = 0; i < size; i++){grid.push(Array(size).fill(100))}
-   var dir = [[0,1],[1,0],[0,-1],[-1,0]]
-   var c = corners(size, 0);
-   var done = false;
-   while(str.length > 0 ){
-    for(var i = 0; i < c.length; i++){
-    
-    var [y,x] = c[i];
-    if(grid[y][x] != 100){ layer++; c = corners(size, layer); [y,x] = c[i];}
-    if(!grid[y] || !grid[y][x] || grid[y][x] != 100){done = true; break;}
-       grid[y][x]=str.shift();
-       c[i] = [c[i][0]+dir[i][0], c[i][1]+dir[i][1]];
+InterlacedSpiralCipher.encode = function (j) {
+    console.log("encode", j);
+    if (!j || j.length < 1) { return "" }
+    var str = j.slice();
+    var size = Math.ceil(Math.sqrt(str.length));
+    str = (str + " ".repeat(Math.pow(size, 2) - str.length)).split("");
+    var layer = 0;
+    var grid = []
+    for (var i = 0; i < size; i++) { grid.push(Array(size).fill(100)) }
+    var dir = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+    var c = corners(size, 0);
+    var done = false;
+    while (str.length > 0) {
+        for (var i = 0; i < c.length; i++) {
+
+            var [y, x] = c[i];
+            if (grid[y][x] != 100) { layer++; c = corners(size, layer);[y, x] = c[i]; }
+            if (!grid[y] || !grid[y][x] || grid[y][x] != 100) { done = true; break; }
+            grid[y][x] = str.shift();
+            c[i] = [c[i][0] + dir[i][0], c[i][1] + dir[i][1]];
+        }
+        if (done) { break }
     }
-    if(done){break}
-   }
-   return grid.map(e=>e.join("")).join("");
-  
+    return grid.map(e => e.join("")).join("");
+
 };
 
-InterlacedSpiralCipher.decode = function(j){
-console.log("decode", j);
-if(!j || j.length < 1){return ""}
-   var grid = [];
-   var size = Math.sqrt(j.length)
-   var str = j.slice()+" ".repeat(Math.pow(size,2)-j.length)
-   var s=str.slice().split("");
-   for(var i = 0; i < size; i++){
-    grid.push(s.splice(0,size));
-   }
-   str=str.split("");
-  
-   var res = "";
-   var layer = 0;
-   var dir = [[0,1],[1,0],[0,-1],[-1,0]]
-   var c = corners(size, 0);
-   var done = false
-   while(!done){
-    for(var i = 0; i < c.length; i++){
-    
-    var [y,x] = c[i];
-    
-    if(!grid[y] || !grid[y][x] || y >= size || x >=size){ layer++; c = corners(size, layer); [y,x] = c[i];}
-       
-      // console.log(y,x, res)
-       if(!grid[y] || !grid[y][x]){done = true; break; }
-      res+=grid[y][x]
-       grid[y][x]=false
-       c[i] = [c[i][0]+dir[i][0], c[i][1]+dir[i][1]];
-       str.pop();
+InterlacedSpiralCipher.decode = function (j) {
+    console.log("decode", j);
+    if (!j || j.length < 1) { return "" }
+    var grid = [];
+    var size = Math.sqrt(j.length)
+    var str = j.slice() + " ".repeat(Math.pow(size, 2) - j.length)
+    var s = str.slice().split("");
+    for (var i = 0; i < size; i++) {
+        grid.push(s.splice(0, size));
     }
-    
-   }
-   
-   return res.trim();
+    str = str.split("");
+
+    var res = "";
+    var layer = 0;
+    var dir = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+    var c = corners(size, 0);
+    var done = false
+    while (!done) {
+        for (var i = 0; i < c.length; i++) {
+
+            var [y, x] = c[i];
+
+            if (!grid[y] || !grid[y][x] || y >= size || x >= size) { layer++; c = corners(size, layer);[y, x] = c[i]; }
+
+            // console.log(y,x, res)
+            if (!grid[y] || !grid[y][x]) { done = true; break; }
+            res += grid[y][x]
+            grid[y][x] = false
+            c[i] = [c[i][0] + dir[i][0], c[i][1] + dir[i][1]];
+            str.pop();
+        }
+
+    }
+
+    return res.trim();
 };
 
 
-function corners(size,layer){
-  return [[layer,layer],[layer,size-layer-1],[size-layer-1,size-layer-1],[size-layer-1,layer]];
-  
- }
+function corners(size, layer) {
+    return [[layer, layer], [layer, size - layer - 1], [size - layer - 1, size - layer - 1], [size - layer - 1, layer]];
+
+}
 
 
 
- function submatrix(matrix) {
+function submatrix(matrix) {
     const n = matrix.length;
     const subIndices = [...Array(n + 1)].map(() => []);
     for (let i = 1; i < 1 << n; i++) {
-      const t = [...i.toString(2)].reverse().map((d, j) => [+d, j]).filter(p => p[0]).map(p => p[1]);
-      subIndices[t.length].push(t);
+        const t = [...i.toString(2)].reverse().map((d, j) => [+d, j]).filter(p => p[0]).map(p => p[1]);
+        subIndices[t.length].push(t);
     }
-  
+
     const cmp = (a, b, c = [].concat(...b)) => [].concat(...a).reduce((r, x, i) => r || x - c[i], 0);
     const r = [];
     for (let k = 1; k <= n; k++) {
-      const subs = [].concat(...subIndices[k].map(rs => 
-                                  subIndices[k].map(cs =>
-                                    rs.map(i => cs.map(j => matrix[i][j])))));
-      r.push(...subs.sort(cmp).filter((a, i, s) => i === 0 || cmp(a, s[i - 1]) !== 0));
+        const subs = [].concat(...subIndices[k].map(rs =>
+            subIndices[k].map(cs =>
+                rs.map(i => cs.map(j => matrix[i][j])))));
+        r.push(...subs.sort(cmp).filter((a, i, s) => i === 0 || cmp(a, s[i - 1]) !== 0));
     }
     return r;
-  }
+}
+
+// Mirrored Exponential Chunks
+function mirroredExponentialChunks(arr) {
+    const oddSize = arr.length & 1;
+    const midPos = parseInt((arr.length - oddSize) / 2, 10);
+    const result = oddSize ? [[arr[midPos]]] : [];
+    const leftElements = arr.slice(0, midPos);
+    const rightElements = arr.slice(midPos + oddSize);
+
+    let quantity = 2;
+    while (leftElements.length > 0) {
+        result.unshift(leftElements.splice(-quantity));
+        result.push(rightElements.splice(0, quantity));
+        quantity <<= 1;
+    }
+
+    return result;
+}
