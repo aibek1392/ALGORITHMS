@@ -200,3 +200,33 @@ var twoSum = function(nums, target) {
     }
   }
 };
+
+
+///
+function penaltyShots(shots, score){
+  const diff = Math.abs(score[0] - score[1]);
+  
+  if (shots >= 5) 
+    return 2 - diff;
+  else 
+    return 6 - shots - diff;
+}
+//
+const solve = (n) => {
+    const parts = n.toString().split('')
+      .map(n => parseInt(n));
+    const l = parts.length;
+    const nSum = parts.reduce((a,c) => a+ c,0);
+    return parts.reduce((a,c,i) =>{
+      const p = [
+        ...parts.slice(0,i),
+        parts[i] > 0 ? parts[i] - 1 : 0,
+        ...new Array((l - 1) - i).fill(9)
+      ];
+      const sum = p.reduce((a1,c1) => a1 + c1,0);
+      const num = parseInt(p.join(''));      
+      return sum >= a.sum ? 
+        sum === a.sum && num < a.num ? a : {sum, num } 
+      : a;      
+    },{sum: nSum, num: n}).num;  
+};
