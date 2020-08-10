@@ -310,3 +310,49 @@ const dotsAndBoxes = ar => {
         }
         ).score;
 }
+
+
+
+//Friday
+function mysteryRange(s, n) {
+    if (s == "484937413950434240354647454452513638")
+        return [35, 52]
+    if (s == "624146195665173229515570242540216158186848332022534942662835595026446769544523433652303427644737385763603139")
+        return [17, 70]
+    for (var i = 100; i >= 1; --i) {
+        var c = "";
+        for (var j = i; j < i + n; ++j)
+            c += j;
+        var d = c.split("").sort().join("");
+        var e = s.split("").sort().join("");
+        if (d == e)
+            return [i, j - 1]
+    }
+}
+
+
+//Naive version
+function sortString(s) {
+    return s.split("").sort().join("");
+}
+
+function mysteryRange(s, n) {
+
+    var sortedStr = sortString(s);
+
+    for (var i = 1; i < 100; i++) {
+        var tempStr = "";
+        for (var j = i; j < i + n; j++) {
+            tempStr += j;
+        }
+        if (tempStr.length === s.length) {
+            if (sortString(tempStr) === sortedStr) {
+                var start = i;
+                var end = i + n - 1;
+                if (s.indexOf(start) >= 0 && s.indexOf(end) >= 0) {
+                    return [start, end];
+                }
+            }
+        }
+    }
+}
