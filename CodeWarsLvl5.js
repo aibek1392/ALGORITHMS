@@ -289,3 +289,24 @@ function mirroredExponentialChunks(arr) {
 
     return result;
 }
+
+
+//
+const dotsAndBoxes = ar => {
+    const res = Math.sqrt(ar.length / 2 + 0.25) - 0.5;
+    return ar
+        .map(([x, y]) => [Math.min(x, y), Math.max(x, y)])
+        .reduce((a, [b, c]) => {
+            a.grid[b]++;
+            const res1 = (b + 1 === c) ? b - res - 1 : b - 1;
+            a.grid[res1]++;
+            a.isFirst = (a.grid[b] === 4 || a.grid[res1] === 4) ? a.isFirst : !a.isFirst;
+            a.score[a.isFirst ? 0 : 1] += (a.grid[b] === 4) + (a.grid[res1] === 4);
+            return a;
+        }, {
+            score: [0, 0],
+            isFirst: true,
+            grid: new Array((res + 1) ** 2).fill(0)
+        }
+        ).score;
+}
