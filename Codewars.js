@@ -176,23 +176,23 @@ function decomp(n) {
   let r = {}
   for (let nb = 2; nb <= n; nb++) {
     let m = nb
-    for (var mb = 2; mb <= m; mb++){
-      while(m % mb === 0) {
+    for (var mb = 2; mb <= m; mb++) {
+      while (m % mb === 0) {
         m /= mb
         r[mb] = (r[mb] || 0) + 1
       }
     }
-    if (m > 1) 
+    if (m > 1)
       r[m] = (r[m] || 0) + 1
   }
-  return Object.keys(r).map(e => r[e] > 1 ? e +"^" + r[e] : e).join` * `
+  return Object.keys(r).map(e => r[e] > 1 ? e + "^" + r[e] : e).join` * `
 }
 
 
-var twoSum = function(nums, target) {
+var twoSum = function (nums, target) {
   let map = {}
   for (let i = 0; i < nums.length; i++) {
-    let complement = target - nums[i] 
+    let complement = target - nums[i]
     if (map[complement]) { // checking if it exists (if i saw it already)
       return [map[complement], i] // return both their indices
     } else {
@@ -203,30 +203,44 @@ var twoSum = function(nums, target) {
 
 
 ///
-function penaltyShots(shots, score){
+function penaltyShots(shots, score) {
   const diff = Math.abs(score[0] - score[1]);
-  
-  if (shots >= 5) 
+
+  if (shots >= 5)
     return 2 - diff;
-  else 
+  else
     return 6 - shots - diff;
 }
 //
 const solve = (n) => {
-    const parts = n.toString().split('')
-      .map(n => parseInt(n));
-    const l = parts.length;
-    const nSum = parts.reduce((a,c) => a+ c,0);
-    return parts.reduce((a,c,i) =>{
-      const p = [
-        ...parts.slice(0,i),
-        parts[i] > 0 ? parts[i] - 1 : 0,
-        ...new Array((l - 1) - i).fill(9)
-      ];
-      const sum = p.reduce((a1,c1) => a1 + c1,0);
-      const num = parseInt(p.join(''));      
-      return sum >= a.sum ? 
-        sum === a.sum && num < a.num ? a : {sum, num } 
-      : a;      
-    },{sum: nSum, num: n}).num;  
+  const parts = n.toString().split('')
+    .map(n => parseInt(n));
+  const l = parts.length;
+  const nSum = parts.reduce((a, c) => a + c, 0);
+  return parts.reduce((a, c, i) => {
+    const p = [
+      ...parts.slice(0, i),
+      parts[i] > 0 ? parts[i] - 1 : 0,
+      ...new Array((l - 1) - i).fill(9)
+    ];
+    const sum = p.reduce((a1, c1) => a1 + c1, 0);
+    const num = parseInt(p.join(''));
+    return sum >= a.sum ?
+      sum === a.sum && num < a.num ? a : { sum, num }
+      : a;
+  }, { sum: nSum, num: n }).num;
+};
+
+///
+const solve = (m) => {
+  let x;
+  const a = m;
+  const b = m * -2 - 1;
+  const c = m;
+  const discriminant = b * b - 4 * a * c;
+
+  if (discriminant > 0) {
+    x = (-b - Math.sqrt(discriminant)) / (2 * a);
+  }
+  return x;
 };
