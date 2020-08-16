@@ -167,17 +167,17 @@ function epidemic(tm, n, s0, i0, b, a) {
   const iArr = new Array(n).fill()
   const sArr = new Array(n).fill()
   const rArr = new Array(n).fill()
-  
+
   iArr[0] = i0
   sArr[0] = s0
   rArr[0] = 0
-  
-  iArr.slice(1).forEach((_, i) => {    
+
+  iArr.slice(1).forEach((_, i) => {
     sArr[i + 1] = sArr[i] - dt * b * sArr[i] * iArr[i]
     iArr[i + 1] = iArr[i] + dt * (b * sArr[i] * iArr[i] - a * iArr[i])
     rArr[i + 1] = rArr[i] + dt * iArr[i] * a
   })
-  
+
   return Math.ceil(Math.max.apply(null, iArr))
 }
 
@@ -203,19 +203,19 @@ function solve(a, b, c, alpha, beta, gamma) {
   let secAngleOne =
     secondAngle -
     (Math.acos((eSide * eSide + b * b - c * c) / (2 * eSide * b)) * 180) /
-      Math.PI;
+    Math.PI;
 
   let x = Math.sqrt(
     eSide * eSide +
-      a * a -
-      2 * eSide * a * Math.cos((secAngleOne * Math.PI) / 180)
+    a * a -
+    2 * eSide * a * Math.cos((secAngleOne * Math.PI) / 180)
   );
   let tocAngle =
-    alpha+(Math.acos((a * a + x * x - eSide * eSide) / (2 * a * x)) * 180) / Math.PI;
+    alpha + (Math.acos((a * a + x * x - eSide * eSide) / (2 * a * x)) * 180) / Math.PI;
 
-  let min = (tocAngle - Math.floor(tocAngle))*60;
+  let min = (tocAngle - Math.floor(tocAngle)) * 60;
 
-  let sec = (min - Math.floor(min))*60; 
+  let sec = (min - Math.floor(min)) * 60;
 
   return [Math.round(x), Math.floor(tocAngle), Math.floor(min), Math.floor(sec)]
 }
@@ -226,11 +226,11 @@ function solve(a, b, c, alpha, beta, gamma) {
 function longestConsec(strarr, k) {
   var longest = "";
   for (var i = 0; k > 0 && i <= strarr.length - k; i++) {
-      var tempArray = strarr.slice(i, i + k);
-      var tempStr = tempArray.join("");
-      if (tempStr.length > longest.length) {
-          longest = tempStr;
-      }
+    var tempArray = strarr.slice(i, i + k);
+    var tempStr = tempArray.join("");
+    if (tempStr.length > longest.length) {
+      longest = tempStr;
+    }
   }
   return longest;
 }
@@ -244,4 +244,19 @@ function meeting(s) {
     return "(" + arr.join(', ') + ")";
   }).join('');
 
+}
+
+function numToIEEE_754(num) {
+  let view = new DataView(new ArrayBuffer(8));
+  view.setFloat64(0, num);
+  let s = view.getUint32(0).toString(2).padStart(32, '0') +
+    view.getUint32(4).toString(2).padStart(32, '0');
+  return s.replace(/(.{1})(.{11})(.*)/, '$1 $2 $3');
+}
+//using podStart
+function numToIEEE_754(num) {
+  let dataview = new DataView(new ArrayBuffer(8));
+  dataview.setFloat64(0, num);
+  let s = dataview.getBigUint64(0).toString(2).padStart(64,"0");
+  return `${s[0]} ${s.slice(1,12)} ${s.slice(12)}`;
 }
