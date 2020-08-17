@@ -356,3 +356,25 @@ function mysteryRange(s, n) {
         }
     }
 }
+
+
+
+
+function Bresenham([x0, y0], [x1, y1]) {
+    console.log([x0, y0], [x1, y1])
+    let deltaX = Math.abs(x1 - x0),
+        signX = x0 < x1 ? 1 : -1,
+        deltaY = Math.abs(y1 - y0),
+        signY = y0 < y1 ? 1 : -1,
+        err = (deltaX > deltaY ? deltaX : -deltaY) / 2,
+        pointsArray = [];
+
+    while (true) {
+        pointsArray.push([x0, y0]);
+        if (x0 === x1 && y0 === y1) break;
+        let e2 = err;
+        if (e2 > -deltaX) { err -= deltaY; x0 += signX; }
+        if (e2 < deltaY) { err += deltaX; y0 += signY; }
+    }
+    return pointsArray;
+}
