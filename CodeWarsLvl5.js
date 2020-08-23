@@ -378,3 +378,30 @@ function Bresenham([x0, y0], [x1, y1]) {
     }
     return pointsArray;
 }
+
+
+//Finding the safest places in town
+
+function advice(agents, n) {
+    const filteredAgents = agents.filter(([x, y]) => 0 <= x && x < n && 0 <= y && y < n);
+    const result = [];
+    if (filteredAgents.length === n * n) {
+      return result;
+    }
+    
+    let maxSafety = -Infinity;
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        const minAgentDistance = Math.min(...filteredAgents.map(([x, y]) => Math.abs(x - i) + Math.abs(y - j)));
+        if (minAgentDistance > maxSafety) {
+          result.length = 0;
+          result.push([i, j]);
+          maxSafety = minAgentDistance;
+        } else if (minAgentDistance === maxSafety) {
+          result.push([i, j]);
+        }
+      }
+    }
+    
+    return result;
+  }
