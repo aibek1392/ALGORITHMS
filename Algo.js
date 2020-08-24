@@ -223,3 +223,23 @@ function solution(string) {
       return s;
   }).join('');
 }
+
+
+const missing = function (src) {
+  const len = src.length;
+  let res;
+  for (let n = 1; (len - n) >= n; n++) {
+    for (let cur = Number(src.substring(0, n)), start = n; start < len;) {
+      cur += 1;
+      const exist = src.indexOf(cur, start) === start;
+      if (exist) {
+        start += String(cur).length;
+        continue;
+      }
+      res = res ? null : cur;
+      if (!res) break;
+    }
+    if (res) break;
+  }
+  return res || -1;
+};
