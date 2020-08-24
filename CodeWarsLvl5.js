@@ -386,22 +386,64 @@ function advice(agents, n) {
     const filteredAgents = agents.filter(([x, y]) => 0 <= x && x < n && 0 <= y && y < n);
     const result = [];
     if (filteredAgents.length === n * n) {
-      return result;
+        return result;
     }
-    
+
     let maxSafety = -Infinity;
     for (let i = 0; i < n; i++) {
-      for (let j = 0; j < n; j++) {
-        const minAgentDistance = Math.min(...filteredAgents.map(([x, y]) => Math.abs(x - i) + Math.abs(y - j)));
-        if (minAgentDistance > maxSafety) {
-          result.length = 0;
-          result.push([i, j]);
-          maxSafety = minAgentDistance;
-        } else if (minAgentDistance === maxSafety) {
-          result.push([i, j]);
+        for (let j = 0; j < n; j++) {
+            const minAgentDistance = Math.min(...filteredAgents.map(([x, y]) => Math.abs(x - i) + Math.abs(y - j)));
+            if (minAgentDistance > maxSafety) {
+                result.length = 0;
+                result.push([i, j]);
+                maxSafety = minAgentDistance;
+            } else if (minAgentDistance === maxSafety) {
+                result.push([i, j]);
+            }
         }
-      }
     }
-    
+
     return result;
-  }
+}
+
+//The sum of each digits
+function sumOfDigits(from, to) {
+    return digitSum(to + 1) - digitSum(from);
+}
+
+var m = [[0, 1, 3, 6, 10, 15, 21, 28, 36, 45]];
+for (let t = 1; t < 9; t++) m.push(m[0].map((n, i) => m[t - 1][9] * (i + 1) + Math.pow(10, t) * n))
+
+function digitSum(n) {
+    var ds = n.toString(), t = 0, s = 0;
+    for (let i = 0; i < ds.length; i++) {
+        s += (m[ds.length - 1 - i][ds[i] - 1] || 0) + t * ds[i] * Math.pow(10, ds.length - 1 - i);
+        t += +ds[i];
+    };
+    return s;
+}
+
+///
+function round(num) {
+    num = num.toString(); //If it's not already a String
+    num = num.slice(0, (num.indexOf(".")) + 7); //With 3 exposing the hundredths place
+    return Number(num);
+}
+
+function exEuler(n) {
+    let T = 1
+    let h = T / n;
+    let x = [0]
+    let y = [1]
+    let yreal = [1]
+    let erro = [0]
+
+    for (let i = 1; i <= n; i++) {
+        x.push(0 + h * i)
+        y.push(y[i - 1] + (2 - Math.exp(-4 * x[i - 1]) - 2 * y[i - 1]) * h)
+        yreal.push(1 + 0.5 * (Math.exp(-4 * x[i])) - 0.5 * Math.exp(-2 * x[i]))
+        erro.push(Math.abs(y[i] - yreal[i]) / yreal[i])
+    }
+    return round(erro.reduce((a, b) => a + b) / (n + 1))
+
+}
