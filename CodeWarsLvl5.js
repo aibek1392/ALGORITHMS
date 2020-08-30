@@ -447,3 +447,68 @@ function exEuler(n) {
     return round(erro.reduce((a, b) => a + b) / (n + 1))
 
 }
+
+
+//coint ip adderesses
+function ipsBetween(start, end) {
+    const ip1 = start.split('.')
+    const ip2 = end.split('.')
+
+    let result = 0
+    for (let i = 0; i < 4; i++) {
+        result += (ip2[i] - ip1[i]) * 256 ** (3 - i)
+    }
+
+    return result
+}
+
+var fold_cube = function (input_list) {
+    var faces = folding([3, 5, 2, 4], 1, input_list[0], input_list.slice(1));
+    faces.sort();
+    console.log(faces);
+    // return faces === [1, 2, 3, 4, 5, 6];
+    if (faces.length != 6) return false;
+    for (var i = 1; i < 7; i++) if (faces.indexOf(i) < 0) return false;
+    return true;
+};
+var new_face = function (grid, direction) {
+    return grid[[1, -1, 5, -5].indexOf(direction)];
+};
+var new_grid = function (face, direction, grid) {
+    var opposite_face = { 1: 6, 2: 4, 6: 1, 4: 2, 5: 3, 3: 5 };
+    var dirs = [1, -1, 5, -5];
+    newgrid = [...grid];
+    newgrid[dirs.indexOf(-direction)] = face;
+    newgrid[dirs.indexOf(direction)] = opposite_face[face];
+    return newgrid;
+};
+var folding = function (grid, face, list_on_face, remain_list) {
+    // console.log(grid, face, list_on_face, remain_list);
+    var faces = [face];
+    var dirs = [1, -1, 5, -5];
+    if (list_on_face % 5 == 1) dirs[1] = 1;
+    if (list_on_face % 5 == 0) dirs[0] = -1;
+    if (list_on_face < 6) dirs[3] = 5;
+    if (list_on_face > 20) dirs[2] = -5;
+    var goto_dirs = [];
+    for (var i = 0; i < dirs.length; i++) {
+        var goto_cell = dirs[i] + list_on_face;
+        if (remain_list.indexOf(goto_cell) > -1) {
+            goto_dirs.push(dirs[i]);
+            remain_list[remain_list.indexOf(goto_cell)] = -100;
+        }
+    }
+    for (var i = 0; i < goto_dirs.length; i++) {
+        var res = folding(
+            new_grid(face, goto_dirs[i], grid),
+            new_face(grid, goto_dirs[i]),
+            list_on_face + goto_dirs[i],
+            remain_list
+        );
+        // console.log(res);
+        for (var j = 0; j < res.length; j++) {
+            faces.push(res[j]);
+        }
+    }
+    return faces;
+};
