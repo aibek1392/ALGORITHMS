@@ -145,30 +145,30 @@ function wordFreq(string) {
 
 
 /////Letter Combinations of a Phone Number
-var letterCombinations = function(digits) {
+var letterCombinations = function (digits) {
     if (digits.length === 0) return [];
-    
-	var map = {
-		"2": ["a", "b", "c"],
-		"3": ["d", "e", "f"],
-		"4": ["g", "h", "i"],
-		"5": ["j", "k", "l"],
-		"6": ["m", "n", "o"],
-		"7": ["p", "q", "r", "s"],
-		"8": ["t", "u", "v"],
-		"9": ["w", "x", "y", "z"]
-	};
+
+    var map = {
+        "2": ["a", "b", "c"],
+        "3": ["d", "e", "f"],
+        "4": ["g", "h", "i"],
+        "5": ["j", "k", "l"],
+        "6": ["m", "n", "o"],
+        "7": ["p", "q", "r", "s"],
+        "8": ["t", "u", "v"],
+        "9": ["w", "x", "y", "z"]
+    };
     var combinations = [''];
-    
+
     // for as many times as there are digits (eg. '3721' => 4 times)
     for (var i = 0; i < digits.length; i++) {
         var digit = digits[i];
         var letters = map[digit];
         var tempArray = [];
-        
+
         // skip if invalid digit
         if (letters === undefined) continue;
-        
+
         // for as many times as there are letters (eg. 'abc' => 3 times)
         for (var j = 0; j < letters.length; j++) {
             var letterToAdd = letters[j];
@@ -188,31 +188,78 @@ var letterCombinations = function(digits) {
 console.log(letterCombinations('234'));
 
 // threesum Solutuon using JavaScript
-var threeSum = function(nums) {
+var threeSum = function (nums) {
     var target = 0;
     if (nums.length === 3) {
-        if (nums[0]+nums[1]+nums[2] === 0) {
-            return [[nums[0],nums[1],nums[2]]];
+        if (nums[0] + nums[1] + nums[2] === 0) {
+            return [[nums[0], nums[1], nums[2]]];
         }
     }
-    
+
     var results = [];
     var hashMap = {};
-    
-    for (var i=0; i<nums.length; i++) {
-        for (var j=i+1; j<nums.length; j++) {
-            for (var k=j+1; k<nums.length; k++) {
-              if (nums[i]+nums[j]+nums[k] === target) {
-                if (!hashMap[nums[i]*nums[j]*nums[k]]) {
-                    results.push([nums[i],nums[j],nums[k]]);
-                    results[results.length-1].sort();
-                    hashMap[nums[i]*nums[j]*nums[k]] = true;
-                    //console.log(hashMap);
+
+    for (var i = 0; i < nums.length; i++) {
+        for (var j = i + 1; j < nums.length; j++) {
+            for (var k = j + 1; k < nums.length; k++) {
+                if (nums[i] + nums[j] + nums[k] === target) {
+                    if (!hashMap[nums[i] * nums[j] * nums[k]]) {
+                        results.push([nums[i], nums[j], nums[k]]);
+                        results[results.length - 1].sort();
+                        hashMap[nums[i] * nums[j] * nums[k]] = true;
+                        //console.log(hashMap);
+                    }
                 }
-              }
-              
+
             }
         }
     }
     return results;
+};
+
+
+// fourSum solution
+var fourSum = function (nums, target) {
+    if (nums.length < 4) return [];
+
+    var len = nums.length;
+    var res = [];
+    var l = 0;
+    var r = 0;
+    var sum = 0;
+
+    nums.sort((a, b) => (a - b));
+
+    for (var i = 0; i < len - 3; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) continue;
+        if (nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) break;
+        if (nums[i] + nums[len - 1] + nums[len - 2] + nums[len - 3] < target) continue;
+
+        for (var j = i + 1; j < len - 2; j++) {
+            if (j > i + 1 && nums[j] === nums[j - 1]) continue;
+            if (nums[i] + nums[j] + nums[j + 1] + nums[j + 2] > target) break;
+            if (nums[i] + nums[j] + nums[len - 1] + nums[len - 2] < target) continue;
+
+            l = j + 1;
+            r = len - 1;
+
+            while (l < r) {
+                sum = nums[i] + nums[j] + nums[l] + nums[r];
+
+                if (sum < target) {
+                    l++;
+                } else if (sum > target) {
+                    r--;
+                } else {
+                    res.push([nums[i], nums[j], nums[l], nums[r]]);
+                    while (l < r && nums[l] === nums[l + 1]) l++;
+                    while (l < r && nums[r] === nums[r - 1]) r--;
+                    l++;
+                    r--;
+                }
+            }
+        }
+    }
+
+    return res;
 };
